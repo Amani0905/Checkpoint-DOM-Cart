@@ -5,46 +5,42 @@ for (var i = 0; i < removeCartItemButtons.length; i++) {
     button.addEventListener('click', function (event) {
         var buttonClicked = event.target
         buttonClicked.parentElement.parentElement.remove()
-        updateCartTotal()
+        Total()
     })
 }
+let counterDisplayElem = document.querySelectorAll('.numberPlace');
+let counterMinusElem = document.querySelectorAll('.minus');
+let counterPlusElem = document.querySelectorAll('.plus');
 
-function updateCartTotal() {
-    var cartItemContainer = document.getElementsByClassName('CartContainer')[0]
-    var cartRows = cartItemContainer.getElementsByClassName('Cart-Items')
-    var total = 0
 
-    for (var i = 0; i < cartRows.length; i++) {
-        var cartRow = cartRows[i]
-        var priceElement = cartRow.getElementsByClassName('amount')[0]
-        var quantityElement = cartRow.getElementsByClassName('numberPlace')[0]
-        var price = priceElement.innerText.replace('DT','')
-        var quantity = quantityElement.innerText
-        total+=price*quantity
-    }
-    document.getElementsByClassName('total-amount')[0].innerText=total+'DT'
-
-  
-}
-let counterDisplayElem = document.querySelector('.numberPlace');
-let counterMinusElem = document.querySelector('.minus');
-let counterPlusElem = document.querySelector('.plus');
-
-let count = 0;
-
-updateDisplay();
-
-counterPlusElem.addEventListener("click",()=>{
-    count++;
-    updateDisplay();
+for (let i = 0; i < counterPlusElem.length; i++)
+counterPlusElem[i].addEventListener("click",()=>{
+    counterPlusElem[i].previousElementSibling.innerHTML++;
+    Total();
 }) ;
 
-counterMinusElem.addEventListener("click",()=>{
-    count--;
-    updateDisplay();
-});
+for (let u=0; u < counterMinusElem.length;u++)
+counterMinusElem[u].addEventListener("click",function(){
+    if(counterMinusElem[u].nextElementSibling.innerHTML>0)
+        counterMinusElem[u].nextElementSibling.innerHTML--;
+        Total();
+    });
 
-function updateDisplay(){
-    counterDisplayElem.innerHTML = count;
-};
+    var tot=document.getElementById('tot')
+function Total (){
+    let z=0
+    var x = document.querySelectorAll(".amount");
+    var y = document.querySelectorAll(".numberPlace");
+    for (let i=0; i<x.length;i++){
+     z = z+ x[i].innerHTML * y[i].innerHTML
+    console.log( z )
+    tot.innerHTML=z + "" +"DT"
+}}
 
+// Wish Heart//
+
+const nodeList=document.querySelectorAll(".far")
+for (let i = 0; i < nodeList.length; i++)
+nodeList[i].addEventListener('click',()=>{
+    nodeList[i].classList.toggle('red')
+    })
